@@ -2,6 +2,7 @@
 <html>
 <head>
 	<link rel="stylesheet" type="text/css" href="./style.css">
+	<link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
 	<script type="text/javascript" src="./scripts.js"></script>
 	<title>Where's Waldo!</title>
 </head>
@@ -9,26 +10,24 @@
 <body>
 	<h1>Where's Waldo!?!?</h1>
 
-	<img src="./images/waldo_image.jpg" width="700" class="waldo">
+	<img src="./images/waldo_image.jpg" width="700" class="waldo" alt="Where is he?">
 
-	<div class="modal" style="display: none">
+	<div class="modal">
 	</div>
   
-	<div class="modal_content" style="display: none">
-  		<div class="modal_close"><a href="javascript:;">X</a></div>
+	<div class="modal_content">
   		<div class="modal_title"></div>
   		<div class="modal_body"></div>
   		<div>Enter your name:<br>
   			<textarea class="winner_name"></textarea><br>
   			<a href="javascript:;" class="submit_score">Sumbit your score</a>
   		</div>
+  		<div><a href="/">Play again!</a></div>
 	</div>
 
 	<p>Timer ** <span class="minutes">00</span>:<span class="seconds">00</span>
 
 	<p class="not_yet"><strong>Nope :( Keep trying! Haven't found him yet</strong></p>
 
-<div class="new_comment">
-</div>
 </body>
 </html>

@@ -2,21 +2,19 @@ require 'sinatra'
 require './functions.rb'
 require 'pry'
 
-enable :sessions
-
+# Sets index.erb as the home page. Loads index.erb
 get('/') do
 	erb :index
 end
 
-post('/test') do
-	@coordinates = params
-	session[:waldo_test] = waldoTest(params)
-end
-
+# Runs the function waldoTest and returns true or false as a string to the client.
 get('/return') do
-	@return = session[:waldo_test].to_s
+	waldo = waldoTest(params)
+	waldo = waldo.to_s
+	return waldo
 end
 
+# Runs storeScore and saves the client's score info to a file.
 post('/storescores') do
 	@score = params
 	storeScore(params)

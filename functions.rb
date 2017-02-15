@@ -1,15 +1,13 @@
 require 'pry'
 require 'csv'
 
+# Checks if you the user has clicked where Waldo is. Returns true or false.
 def waldoTest(params)
-	@coordinates = @coordinates.keys
-	@coordinates = @coordinates.shift
-	@coordinates = @coordinates.split(" ")
+	x = params[:x]
+	y = params[:y]
 	waldo_test = true
-	if @coordinates[0].to_i >= 450 && @coordinates[0].to_i <= 490
-		if @coordinates[1].to_i >= 455 && @coordinates[1].to_i <= 515
-			waldo_test = true
-		end
+	if x.to_i >= 450 && x.to_i <= 485 && y.to_i >= 470 && y.to_i <= 515
+		waldo_test = true
 	else
 		waldo_test = false
 	end
@@ -17,6 +15,7 @@ def waldoTest(params)
 	return waldo_test
 end
 
+# Posts the submitted score and user's name to the save file.
 def storeScore(params)
 	@score = @score.keys
 	@score = @score.shift
@@ -34,6 +33,7 @@ def storeScore(params)
 	end
 end
 
+# Loads the save file for reading and writing above.
 def loadScores()
 	scores = []
 	CSV.foreach('./public/highscores.csv', {headers:true}) do |row|
@@ -43,3 +43,5 @@ def loadScores()
 	end
 	return scores
 end
+
+## Combine two functions above??

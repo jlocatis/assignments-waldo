@@ -1,8 +1,36 @@
 body {
-	font-family: Helvetica;
+	font-family: 'Rubik', sans-serif;
+  color: white;
+  background: repeating-linear-gradient(
+    90deg,
+    #222,
+    #222 10px,
+    #333 10px,
+    #333 20px
+  );
+}
+
+h1 {
+  text-align: center;
+  font-weight: bold;
+}
+
+a {
+  color: red;
+}
+
+a:visited {
+  color: red;
+}
+
+a:hover {
+  color: green;
+  text-decoration: underline;
 }
 
 .modal{
+  color: black;
+  display: none;
   background: rgba(0,0,0,0.5);
   position: fixed;
   z-index: 9998;
@@ -12,8 +40,10 @@ body {
   left: 0;
 }
 .modal_content{
-  width: 600px;
-  height: 400px;
+  color: black;
+  display: none;
+  width: 400px;
+  height: 100px;
   position: fixed;
   z-index: 9999;
   left: 50%;
@@ -22,7 +52,8 @@ body {
   margin-top: -200px;
   background: #fff;
   border: 1px solid #ccc;
-  padding: 30px;
+  border-radius: 10px;
+  padding: 40px;
 }
 .modal_close{
   float: right;
@@ -34,4 +65,9 @@ body {
 
 .not_yet {
 	display: none;
+}
+
+.modal_title {
+  font-weight: bold;
+  text-shadow: 1px 1px red;
 }

@@ -1,40 +1,32 @@
+// On window load, will add the event listener to the Waldo image.
 window.addEventListener("load", function() {
 	document.getElementsByClassName("waldo")[0].addEventListener("click", findClickLocation);
 });
 
+// Sets the x and y variables to be used for determining the click location to zero.
 var x = 0;
 var y = 0;
 
+// Determines the x and y coordinates of the user's click within the Waldo image. Sends those coordinates to the function getData.
 function findClickLocation(event) {
 	var click_event = window.event;
 	x = click_event.offsetX?(click_event.offsetX):click_event.pageX-document.getElementsByClassName("waldo").offsetLeft;
 	y = click_event.offsetY?(click_event.offsetY):click_event.pageY-document.getElementsByClassName("waldo").offsetTop;
-	event.preventDefault();
-	sendData();
-}
-
-function closeModalWindow() {
-	document.getElementsByClassName("modal")[0].style.display = "none";
-	document.getElementsByClassName("modal_content")[0].style.display = "none";
-}
-
-function sendData() {
-	httpRequest = new XMLHttpRequest();
-	httpRequest.open('POST', '/test');
-	var params_x = encodeURIComponent(x);
-	var params_y = encodeURIComponent(y);
-	var params = params_x + " " + params_y;
-	httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	httpRequest.send(params);
+	debugger;
 	getData();
 }
 
+// Sends x and y into ruby to check if the click location is valid. Ruby will return true or false as a string.
+// If true is returned it will show the game over modal window, allowing you the chance to save your score with your name.
+// If false is returned a "not yet" message is displayed at the bottom of the page for five seconds.
 function getData() {
 	httpRequest = new XMLHttpRequest();
-	httpRequest.open('GET', '/return')
-	httpRequest.onload = function() {
-		var waldo_test = httpRequest.responseText
-		if (waldo_test == "true") {
+	var coordinates = "x=" + x + "&y=" + y;
+	httpRequest.open('GET', '/return?' + coordinates)
+	httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	httpRequest.onreadystatechange = function() {
+		// var waldo_test = httpRequest.responseText
+		if (httpRequest.responseText == "true") {
 			document.getElementsByClassName("not_yet")[0].style.display = "none";
 			document.getElementsByClassName("modal")[0].style.display = "block";
 			document.getElementsByClassName("modal_content")[0].style.display = "block";
@@ -47,9 +39,9 @@ function getData() {
 				winner_name = document.getElementsByClassName("winner_name")[0].value;
 				storeScores(winner_name, final_minutes, final_seconds);
 			});
-		} else if (waldo_test == "false") {
+		} else if (httpRequest.responseText == "false") {
 			document.getElementsByClassName("not_yet")[0].style.display = "block";
-			setTimeout(resetResponseError, 2000);
+			setTimeout(resetResponseError, 5000);
 			function resetResponseError() {
 				document.getElementsByClassName("not_yet")[0].style.display = "none";
 			}
@@ -58,6 +50,8 @@ function getData() {
 	httpRequest.send();
 }
 
+// Runs the time for scoring purposes. Time begins on page load. The below function runs every second.
+// Each second it will update the text content of the timer on the page.
 var current_timer = "";
 
 function timer() {
@@ -73,6 +67,7 @@ function timer() {
 
 timer();
 
+// Sends the final time and the user's name to ruby for storage in the saved scores file.
 function storeScores(name, minutes, seconds) {
 	httpRequest = new XMLHttpRequest();
 	httpRequest.open('POST', '/storescores');
