@@ -1,6 +1,7 @@
 // On window load, will add the event listener to the Waldo image.
 window.addEventListener("load", function() {
 	document.getElementsByClassName("waldo")[0].addEventListener("click", findClickLocation);
+	document.getElementById("show_scores").addEventListener("click", showScores);
 });
 
 // Sets the x and y variables to be used for determining the click location to zero.
@@ -12,7 +13,6 @@ function findClickLocation(event) {
 	var click_event = window.event;
 	x = click_event.offsetX?(click_event.offsetX):click_event.pageX-document.getElementsByClassName("waldo").offsetLeft;
 	y = click_event.offsetY?(click_event.offsetY):click_event.pageY-document.getElementsByClassName("waldo").offsetTop;
-	debugger;
 	getData();
 }
 
@@ -77,4 +77,19 @@ function storeScores(name, minutes, seconds) {
 	var params = name + " " + mins + " " + secs;
 	httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	httpRequest.send(params);
+}
+
+function showScores() {
+	clearInterval(current_timer);
+	document.getElementsByClassName("modal")[0].addEventListener("click", function(){
+		window.location.href = "/";
+	});
+	document.getElementsByClassName("modal")[0].style.display = "block";
+	document.getElementById("score_modal").style.display = "block";
+	xhr = new XMLHttpRequest();
+	xhr.open('GET', '/showscores');
+	xhr.onreadystatechange = function() {
+		document.getElementById("score_body").innerHTML = xhr.responseText
+	}
+	xhr.send();
 }

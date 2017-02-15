@@ -43,5 +43,3 @@ def loadScores()
 	end
 	return scores
 end
-
-## Combine two functions above??

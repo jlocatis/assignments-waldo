@@ -19,3 +19,10 @@ post('/storescores') do
 	@score = params
 	storeScore(params)
 end
+
+get('/showscores') do
+	scores = loadScores()
+	scores = scores.join("")
+	scores = scores.gsub(/\n/, '<br>')
+	return scores
+end
