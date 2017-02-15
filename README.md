@@ -1,5 +1,4 @@
 # WHERE'S WALDO???
-==================
 
 This is a quick web program that provides the user with a Where's Waldo image. The user has to find Waldo before the game ends, there is a timer that starts when the page loads! Find him quick!!
 
