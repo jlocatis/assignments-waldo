@@ -1,7 +1,8 @@
 // On window load, will add the event listener to the Waldo image.
 window.addEventListener("load", function() {
 	document.getElementsByClassName("waldo")[0].addEventListener("click", findClickLocation);
-	document.getElementById("show_scores").addEventListener("click", showScores);
+	document.getElementsByClassName("show_scores")[0].addEventListener("click", showScores);
+	document.getElementsByClassName("show_scores")[1].addEventListener("click", showScores);
 });
 
 // Sets the x and y variables to be used for determining the click location to zero.
@@ -83,6 +84,7 @@ function showScores() {
 	});
 	document.getElementsByClassName("modal")[0].style.display = "block";
 	document.getElementById("score_modal").style.display = "block";
+	document.getElementsByClassName("modal_body")[0].style.display = "none";
 	xhr = new XMLHttpRequest();
 	xhr.open('GET', '/showscores');
 	xhr.onreadystatechange = function() {

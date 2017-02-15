@@ -16,7 +16,6 @@ end
 
 # Runs storeScore and saves the client's score info to a file.
 get('/storescores') do
-	binding.pry
 	storeScore(params)
 end
 
