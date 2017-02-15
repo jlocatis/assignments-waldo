@@ -15,14 +15,15 @@ get('/return') do
 end
 
 # Runs storeScore and saves the client's score info to a file.
-post('/storescores') do
-	@score = params
+get('/storescores') do
+	binding.pry
 	storeScore(params)
 end
 
 get('/showscores') do
 	scores = loadScores()
 	scores = scores.join("")
+	scores = scores.gsub(',', ', ')
 	scores = scores.gsub(/\n/, '<br>')
 	return scores
 end

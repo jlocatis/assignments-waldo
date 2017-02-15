@@ -17,14 +17,12 @@ end
 
 # Posts the submitted score and user's name to the save file.
 def storeScore(params)
-	@score = @score.keys
-	@score = @score.shift
-	@score = @score.split(" ")
-	winner_name = @score.shift
-	@score = @score.join(":")
+	binding.pry
 	scores = loadScores()
-	new_score = winner_name + "," + @score + "\n"
+	new_score = params[:name] + "," + params[:mins] + ":" + params[:secs] + "\n"
+	binding.pry
 	scores << new_score
+	binding.pry
 	File.open('./public/highscores.csv', 'w') do |file|
 		file << "Name,HighScore\n"
 		scores.each do |line|

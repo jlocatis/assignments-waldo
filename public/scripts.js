@@ -70,13 +70,10 @@ timer();
 // Sends the final time and the user's name to ruby for storage in the saved scores file.
 function storeScores(name, minutes, seconds) {
 	httpRequest = new XMLHttpRequest();
-	httpRequest.open('POST', '/storescores');
-	var name = encodeURIComponent(name)
-	var mins = encodeURIComponent(minutes);
-	var secs = encodeURIComponent(seconds);
-	var params = name + " " + mins + " " + secs;
+	var params = "name=" + name + "&mins=" + minutes + "&secs=" + seconds;
+	httpRequest.open('GET', '/storescores?' + params);
 	httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	httpRequest.send(params);
+	httpRequest.send();
 }
 
 function showScores() {
