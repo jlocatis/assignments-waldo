@@ -49,14 +49,14 @@ def loadScores()
 	sort_scores.each do |i|
 		time = i[1]
 		if time > 60
-			test1 = time % 60 #seconds
+			seconds = time % 60 #seconds
 			time = time / 60 #minutes
-			if test1 < 10
-				test1 = test1.to_s
-				clock = ":0" + test1
+			if seconds < 10
+				seconds = seconds.to_s
+				clock = ":0" + seconds
 			else
-				test1 = test1.to_s
-				clock = ":" + test1
+				seconds = seconds.to_s
+				clock = ":" + seconds
 			end
 			if time < 10
 				time = time.to_s
