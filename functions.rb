@@ -23,7 +23,7 @@ def storeScore(params)
 	end
 end
 
-# Loads the save file for reading and writing above.
+# Loads the save file and sorts scores by time for reading and writing above.
 def loadScores()
 	scores = []
 	CSV.foreach('./public/highscores.csv', {headers:true}) do |row|
@@ -32,22 +32,25 @@ def loadScores()
 		scores << row.to_s
 	end
 
-	##
+	# Takes the minutes/seconds string, converts it into seconds as an integer, sorts
+	# the array based on the integer value, and returns the seconds integer back into
+	# a minutes/seconds string.
 	sort_scores = []
 	scores.each do |x|
-		test = x.split(',')
-		current_time = test[1]
+		time_array = x.split(',')
+		current_time = time_array[1]
 		mins = current_time.slice(0,2).to_i
 		secs = current_time.slice(3,2).to_i
-		test[1] = (mins * 60) + secs
-		sort_scores << test
+		time_array[1] = (mins * 60) + secs
+		sort_scores << time_array
 	end
+
 	sort_scores = sort_scores.sort_by(&:last)
 	sort_scores.each do |i|
-		test = i[1]
-		if test > 60
-			test1 = test % 60 #seconds
-			test = test / 60 #minutes
+		time = i[1]
+		if time > 60
+			test1 = time % 60 #seconds
+			time = time / 60 #minutes
 			if test1 < 10
 				test1 = test1.to_s
 				clock = ":0" + test1
@@ -55,20 +58,20 @@ def loadScores()
 				test1 = test1.to_s
 				clock = ":" + test1
 			end
-			if test < 10
-				test = test.to_s
-				clock = "0" + test + clock
+			if time < 10
+				time = time.to_s
+				clock = "0" + time + clock
 			else
-				test = test.to_s
-				clock = test + clock
+				time = time.to_s
+				clock = time + clock
 			end
 		else
-			if test < 10
-				test = test.to_s
-				clock = "00:0" + test
+			if time < 10
+				time = time.to_s
+				clock = "00:0" + time
 			else
-				test = test.to_s
-				clock = "00:" + test
+				time = time.to_s
+				clock = "00:" + time
 			end
 		end
 		i[1] = clock
