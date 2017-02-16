@@ -68,15 +68,7 @@ function timer() {
 
 timer();
 
-// Sends the final time and the user's name to ruby for storage in the saved scores file.
-// function storeScores(name, minutes, seconds) {
-// 	httpRequest = new XMLHttpRequest();
-// 	var params = "name=" + name + "&mins=" + minutes + "&secs=" + seconds;
-// 	httpRequest.open('GET', '/storescores?' + params);
-// 	httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-// 	httpRequest.send();
-// }
-
+// Sends the user's score (along with the option to input their name) for storage on the server.
 function storeScores(name, minutes, seconds) {
 	httpRequest = new XMLHttpRequest();
 	var params = "name=" + name + "&mins=" + minutes + "&secs=" + seconds;
@@ -86,6 +78,7 @@ function storeScores(name, minutes, seconds) {
 	event.stopImmediatePropagation();
 }
 
+// Grabs the stored scores from the server and displays them for the user.
 function showScores() {
 	clearInterval(current_timer);
 	document.getElementsByClassName("modal")[0].addEventListener("click", function(){
