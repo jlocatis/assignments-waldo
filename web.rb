@@ -15,7 +15,7 @@ get('/return') do
 end
 
 # Runs storeScore and saves the client's score info to a file.
-get('/storescores') do
+post('/storescores') do
 	storeScore(params)
 end
 
